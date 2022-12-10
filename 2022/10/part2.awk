@@ -2,9 +2,10 @@
 
 function drawPixel() {
   if (pixel_head >= register_x - 1 && pixel_head <= register_x + 1) {
-    printf("#")
+    # https://www.reddit.com/r/adventofcode/comments/zhl2wl/comment/izmt9o6/
+    printf("██")
   } else {
-    printf(".")
+    printf("  ")
   }
 
   pixel_head += 1
