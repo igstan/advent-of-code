@@ -1,0 +1,30 @@
+graph {
+  node [ shape = circle ]
+
+  AA [
+    fillcolor = "#e0e0e0"
+    style     = "filled"
+    fontcolor = "#444444"
+  ]
+
+  AA [label="AA [0]"]
+  AA -- BB
+  AA -- II
+  AA -- DD
+  HH [label="HH [22]"]
+  HH -- GG
+  BB [label="BB [13]"]
+  BB -- CC
+  II [label="II [0]"]
+  II -- JJ
+  CC [label="CC [2]"]
+  CC -- DD
+  JJ [label="JJ [21]"]
+  DD [label="DD [20]"]
+  DD -- EE
+  EE [label="EE [3]"]
+  EE -- FF
+  FF [label="FF [0]"]
+  FF -- GG
+  GG [label="GG [0]"]
+}

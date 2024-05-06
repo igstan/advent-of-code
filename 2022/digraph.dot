@@ -1,0 +1,25 @@
+digraph {
+  rankdir = LR
+
+  # graph [
+  #   splines = ortho
+  # ]
+
+  node [
+    shape = circle
+  ]
+
+  edge [
+    # constraint = false
+    arrowsize = 0.3
+    fontsize = 7
+  ]
+
+  a -> c [label=21]
+  b -> a [label=2]
+  b -> c [label=30]
+  c -> t [label=75]
+  s -> a [label=20]
+  s -> b [label=31]
+  t -> c [label=10]
+}
