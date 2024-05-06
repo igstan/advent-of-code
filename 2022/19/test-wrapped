@@ -1,0 +1,41 @@
+Blueprint 1:
+  Each ore robot costs 4 ore.
+  Each clay robot costs 2 ore.
+  Each obsidian robot costs 3 ore and 14 clay.
+  Each geode robot costs 2 ore and 7 obsidian.
+
+Blueprint 2:
+  Each ore robot costs 2 ore.
+  Each clay robot costs 3 ore.
+  Each obsidian robot costs 3 ore and 8 clay.
+  Each geode robot costs 3 ore and 12 obsidian.
+
+---
+
+x_ore[i]   = number of **ore**      robots at minute i, where 0 <= i < 24
+x_clay[i]  = number of **clay**     robots at minute i, where 0 <= i < 24
+x_obsid[i] = number of **obsidian** robots at minute i, where 0 <= i < 24
+x_geode[i] = number of **geode**    robots at minute i, where 0 <= i < 24
+
+n_ore[i]   = number of **ore**      units at minute i, where 0 <= i < 24
+n_clay[i]  = number of **clay**     units at minute i, where 0 <= i < 24
+n_obsid[i] = number of **obsidian** units at minute i, where 0 <= i < 24
+n_geode[i] = number of **geode**    units at minute i, where 0 <= i < 24
+
+---
+
+x_ore[0] = 1
+
+x_ore[i]   = x_ore[i - 1]   + floor(n_ore[i - 1] / 4)
+x_clay[i]  = x_clay[i - 1]  + floor(n_ore[i - 1] / 2)
+x_obsid[i] = x_obsid[i - 1] + min(floor(n_ore[i - 1] / 3), floor(n_clay[i - 1]  / 14))
+x_geode[i] = x_geode[i - 1] + min(floor(n_ore[i - 1] / 2), floor(n_obsid[i - 1] /  7))
+
+n_ore[i]   = n_ore[i - 1]   + x_ore[i - 1]
+n_clay[i]  = n_clay[i - 1]  + x_clay[i - 1]
+n_obsid[i] = n_obsid[i - 1] + x_obsid[i - 1]
+n_geode[i] = n_geode[i - 1] + x_geode[i - 1]
+
+---
+
+max(n_geode[24])
