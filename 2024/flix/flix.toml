@@ -1,0 +1,6 @@
+[package]
+name        = "aoc-2024"
+description = "Advent of Code — 2024"
+version     = "0.1.0"
+flix        = "0.54.0"
+authors     = ["Ionuț G. Stan"]
