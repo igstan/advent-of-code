@@ -50,8 +50,7 @@ mod Day03 {
     def evaluate(globalState: { evaluating = Bool, result = Int32 }, line: String) = {
       let instrRegex = regex("mul\\([0-9]{1,3},[0-9]{1,3}\\)|do\\(\\)|don't\\(\\)");
       let exprs = line |> Regex.submatches({ substr = instrRegex });
-      (globalState, exprs) ||> List.foldLeft((lineState, instr) -> {
-        let { result, evaluating } = lineState;
+      (globalState, exprs) ||> List.foldLeft(match {result, evaluating} -> instr -> {
         match instr {
           case "do()"              => { result = result,              evaluating = true }
           case "don't()"           => { result = result,              evaluating = false }

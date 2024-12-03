@@ -5,7 +5,18 @@ programming language [Flix](https://flix.dev/).
 
 ## Observations
 
-`match` lambdas don't seem to work with multiple arguments.
+`match` lambdas don't seem to work with multiple arguments. Unless you write
+the lambda in curried form:
+
+```flix
+List.foldLeft(match {result, evaluating} -> instr -> ...
+
+// instead of
+
+List.foldLeft((acc, instr) ->
+  let {result, evaluating} = acc;
+  // ...
+```
 
 ---
 
