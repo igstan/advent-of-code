@@ -5,6 +5,10 @@ programming language [Flix](https://flix.dev/).
 
 ## Observations
 
+`match` lambdas don't seem to work with multiple arguments.
+
+---
+
 `let`-bindings in nested functions require curly braces on the function:
 
 ```

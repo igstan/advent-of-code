@@ -47,16 +47,16 @@ mod Day03 {
         |> List.reduceLeft((a, b) -> a * b)
         |> Option.getWithDefault(0);
 
-    def evaluate(globalState: (Int32, Bool), line: String): (Int32, Bool) \ RegexError = {
+    def evaluate(globalState: { evaluating = Bool, result = Int32 }, line: String) = {
       let instrRegex = regex("mul\\([0-9]{1,3},[0-9]{1,3}\\)|do\\(\\)|don't\\(\\)");
       let exprs = line |> Regex.submatches({ substr = instrRegex });
       (globalState, exprs) ||> List.foldLeft((lineState, instr) -> {
-        let (result, evaluating) = lineState;
+        let { result, evaluating } = lineState;
         match instr {
-          case "do()"              => (result, true)
-          case "don't()"           => (result, false)
-          case _ if not evaluating => (result, false)
-          case _                   => (result + mul(instr), true)
+          case "do()"              => { result = result,              evaluating = true }
+          case "don't()"           => { result = result,              evaluating = false }
+          case _ if not evaluating => { result = result,              evaluating = false }
+          case _                   => { result = result + mul(instr), evaluating = true }
         }
       })
     };
@@ -65,10 +65,10 @@ mod Day03 {
       case Err(ioerror) => println("error reading file: ${ioerror}")
       case Ok(lines) =>
         run {
-          let evaluating = true;
-          ((0, evaluating), lines)
+
+          ({ result = 0, evaluating = true }, lines)
             ||> List.foldLeft(evaluate)
-            |> match (answer, _) -> println("answer: ${answer}")
+            |> match { result | _ } -> println("answer: ${result}")
 
         } with RegexError {
           def raise(e, _continuation) =
