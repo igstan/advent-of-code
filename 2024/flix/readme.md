@@ -5,6 +5,19 @@ programming language [Flix](https://flix.dev/).
 
 ## Observations
 
+`let`-bindings in nested functions require curly braces on the function:
+
+```
+pub def part1(path: String): Unit \ IO = {
+  def evaluate(line: String): Int32 \ RegexError = { // ← necessary curlies
+    let re = regex("mul\\([0-9]{1,3},[0-9]{1,3}\\)");
+    // ...
+  };
+
+  // ...
+}
+```
+
 ### Nice things in Flix
 
 Overall, quite a pleasant language and the VSCode experience is stellar given

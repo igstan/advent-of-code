@@ -47,21 +47,19 @@ mod Day03 {
         |> List.reduceLeft((a, b) -> a * b)
         |> Option.getWithDefault(0);
 
-    def evaluate(globalState: (Int32, Bool), line: String): (Int32, Bool) \ RegexError =
-      match String.toRegex("mul\\([0-9]{1,3},[0-9]{1,3}\\)|do\\(\\)|don't\\(\\)") {
-        case Err(message) => RegexError.raise(message)
-        case Ok(instrRegex) =>
-          let exprs = line |> Regex.submatches({ substr = instrRegex });
-          (globalState, exprs) ||> List.foldLeft((lineState, instr) -> {
-            let (result, evaluating) = lineState;
-            match instr {
-              case "do()"              => (result, true)
-              case "don't()"           => (result, false)
-              case _ if not evaluating => (result, false)
-              case _                   => (result + mul(instr), true)
-            }
-          })
-      };
+    def evaluate(globalState: (Int32, Bool), line: String): (Int32, Bool) \ RegexError = {
+      let instrRegex = regex("mul\\([0-9]{1,3},[0-9]{1,3}\\)|do\\(\\)|don't\\(\\)");
+      let exprs = line |> Regex.submatches({ substr = instrRegex });
+      (globalState, exprs) ||> List.foldLeft((lineState, instr) -> {
+        let (result, evaluating) = lineState;
+        match instr {
+          case "do()"              => (result, true)
+          case "don't()"           => (result, false)
+          case _ if not evaluating => (result, false)
+          case _                   => (result + mul(instr), true)
+        }
+      })
+    };
 
     match Files.readLines("src/day-03/${path}") {
       case Err(ioerror) => println("error reading file: ${ioerror}")
