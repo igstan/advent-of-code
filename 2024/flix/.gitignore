@@ -6,5 +6,4 @@ build/
 lib/
 crash_report_*.txt
 
-src/**/test
 src/**/input
